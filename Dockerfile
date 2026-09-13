@@ -1,7 +1,9 @@
 # Production image for 5 proti 5.
 # Build and run with: docker compose up --build
 
-ARG NODE_VERSION=22-bookworm-slim
+# Pin an old schema-2 tag. Current node:*-bookworm images are OCI
+# indexes, which Docker 19 cannot pull.
+ARG NODE_VERSION=20.11.1-bullseye-slim
 
 FROM node:${NODE_VERSION} AS dependencies
 WORKDIR /app
