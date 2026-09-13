@@ -15,14 +15,14 @@ export function toPlayView(state: GameState, questions: Question[]): PlayView {
     totalQuestions: questions.length,
     prompt: question.prompt,
     promptEn: question.promptEn,
-    promptCs: question.promptCs,
+    promptCs: question.promptCs || question.prompt,
     answers: question.answers.map((answer, index) =>
       state.revealed[index]
         ? {
             shown: true,
             text: answer.text,
             textEn: answer.textEn,
-            textCs: answer.textCs,
+            textCs: answer.textCs || answer.text,
             points: answer.points,
           }
         : { shown: false },

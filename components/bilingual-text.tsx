@@ -24,12 +24,12 @@ export function BilingualText({
 
   if (both) {
     return (
-      <span className={cn("flex min-w-0 flex-col text-left", className)}>
-        <span>{czech}</span>
-        <span className={cn("opacity-80", secondaryClassName)}>{english}</span>
-      </span>
+      <div className={cn("flex w-full min-w-0 flex-col text-left", className)}>
+        <div>{czech}</div>
+        <div className={cn("opacity-80", secondaryClassName)}>{english}</div>
+      </div>
     );
   }
 
-  return <span className={className}>{czech || english || single}</span>;
+  return <div className={className}>{czech || english || single}</div>;
 }

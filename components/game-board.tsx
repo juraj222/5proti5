@@ -68,7 +68,7 @@ function AnswerTile({
   answer: BoardAnswer;
 }) {
   return (
-    <div className="tile-scene h-[5.75rem] sm:h-24 md:h-[6.5rem]">
+    <div className="tile-scene h-[6.75rem] sm:h-[7.25rem] md:h-32">
       <div className={cn("tile-flip", answer.shown && "is-flipped")}>
         <div className="tile-face tile-back">
           <span className="font-heading marquee-num text-4xl sm:text-5xl">
@@ -77,11 +77,11 @@ function AnswerTile({
         </div>
         <div className="tile-face tile-front">
           <BilingualText
-            cs={answer.textCs}
+            cs={answer.textCs || answer.text}
             en={answer.textEn}
             fallback={answer.text}
-            className="min-w-0 flex-1 pr-3 text-lg leading-tight font-semibold tracking-wide text-white sm:text-xl md:text-2xl"
-            secondaryClassName="mt-0.5 text-sm font-medium tracking-normal text-white/85 sm:text-base md:text-lg"
+            className="min-w-0 flex-1 justify-center pr-3 text-base leading-tight font-semibold tracking-wide text-white sm:text-xl md:text-2xl"
+            secondaryClassName="mt-1 text-sm font-medium tracking-normal text-white sm:text-base md:text-lg"
           />
           <span className="font-heading shrink-0 rounded-xl bg-show-yellow px-3 py-1 text-2xl leading-none text-show-ink sm:text-3xl">
             {answer.points}
@@ -140,13 +140,13 @@ export function GameBoard({
         />
       </div>
 
-      <div className="rounded-2xl border-2 border-show-yellow/25 bg-show-ink/55 px-4 py-4 text-center text-lg leading-snug text-white sm:px-8 sm:text-2xl md:text-3xl">
+      <div className="rounded-2xl border-2 border-show-yellow/25 bg-show-ink/55 px-4 py-4 text-white sm:px-8">
         <BilingualText
-          cs={promptCs}
+          cs={promptCs || prompt}
           en={promptEn}
           fallback={prompt}
-          className="items-center text-center"
-          secondaryClassName="mt-1 text-base font-normal text-show-cream/80 sm:text-lg md:text-xl"
+          className="items-center text-center text-lg leading-snug sm:text-2xl md:text-3xl"
+          secondaryClassName="mt-2 text-base font-normal text-show-cream sm:text-xl md:text-2xl"
         />
       </div>
 
