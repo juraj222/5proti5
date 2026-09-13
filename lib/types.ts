@@ -1,11 +1,15 @@
 export type Answer = {
   text: string;
+  textEn?: string;
+  textCs?: string;
   points: number;
 };
 
 export type Question = {
   id: number;
   prompt: string;
+  promptEn?: string;
+  promptCs?: string;
   answers: Answer[];
 };
 
@@ -25,6 +29,8 @@ export type GameState = {
 export type AnswerSlot = {
   shown: boolean;
   text?: string;
+  textEn?: string;
+  textCs?: string;
   points?: number;
 };
 
@@ -34,6 +40,8 @@ export type PlayView = {
   questionIndex: number;
   totalQuestions: number;
   prompt: string;
+  promptEn?: string;
+  promptCs?: string;
   answers: AnswerSlot[];
   strikes: number;
   roundPoints: number;
@@ -48,6 +56,8 @@ export type PlayView = {
 export type AdminQuestionPreview = {
   id: number;
   prompt: string;
+  promptEn?: string;
+  promptCs?: string;
 };
 
 export type AdminView = {
@@ -56,6 +66,8 @@ export type AdminView = {
   questionIndex: number;
   totalQuestions: number;
   prompt: string;
+  promptEn?: string;
+  promptCs?: string;
   answers: Answer[];
   revealed: boolean[];
   strikes: number;

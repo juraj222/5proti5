@@ -14,9 +14,17 @@ export function toPlayView(state: GameState, questions: Question[]): PlayView {
     questionIndex: state.questionIndex,
     totalQuestions: questions.length,
     prompt: question.prompt,
+    promptEn: question.promptEn,
+    promptCs: question.promptCs,
     answers: question.answers.map((answer, index) =>
       state.revealed[index]
-        ? { shown: true, text: answer.text, points: answer.points }
+        ? {
+            shown: true,
+            text: answer.text,
+            textEn: answer.textEn,
+            textCs: answer.textCs,
+            points: answer.points,
+          }
         : { shown: false },
     ),
     strikes: state.strikes,
@@ -42,6 +50,8 @@ export function toAdminView(
     questionIndex: state.questionIndex,
     totalQuestions: questions.length,
     prompt: question.prompt,
+    promptEn: question.promptEn,
+    promptCs: question.promptCs,
     answers: question.answers,
     revealed: state.revealed,
     strikes: state.strikes,
@@ -52,7 +62,12 @@ export function toAdminView(
     team2Score: state.team2Score,
     awardedThisRound: state.awardedThisRound,
     lastAwardedTo: state.lastAwardedTo,
-    catalog: questions.map((item) => ({ id: item.id, prompt: item.prompt })),
+    catalog: questions.map((item) => ({
+      id: item.id,
+      prompt: item.prompt,
+      promptEn: item.promptEn,
+      promptCs: item.promptCs,
+    })),
     sourceName,
   };
 }

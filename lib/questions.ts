@@ -89,10 +89,17 @@ function parseFamilyFeudMarkdown(markdown: string): Question[] {
       if (/^en$/i.test(cells[0]) && /^cz$/i.test(cells[1])) continue;
       if (/^-+/.test(cells[0]) || /^-+/.test(cells[1])) continue;
 
-      const text = displayText(cells[1] || cells[0]);
+      const textEn = displayText(cells[0]);
+      const textCs = displayText(cells[1] || cells[0]);
+      const text = textCs || textEn;
       const points = Number(String(cells[2]).replace(/[^\d]/g, ""));
       if (!text || Number.isNaN(points)) continue;
-      answers.push({ text, points });
+      answers.push({
+        text,
+        textEn: textEn || undefined,
+        textCs: textCs || undefined,
+        points,
+      });
     }
 
     const prompt = czechPrompt || englishPrompt;
@@ -101,6 +108,8 @@ function parseFamilyFeudMarkdown(markdown: string): Question[] {
     questions.push({
       id,
       prompt,
+      promptEn: englishPrompt || undefined,
+      promptCs: czechPrompt || undefined,
       answers: answers
         .sort((a, b) => b.points - a.points)
         .slice(0, ANSWERS_PER_QUESTION),

@@ -37,6 +37,8 @@ export default function PlayPage() {
       ) : null}
       <GameBoard
         prompt={data.prompt}
+        promptEn={data.promptEn}
+        promptCs={data.promptCs}
         questionIndex={data.questionIndex}
         totalQuestions={data.totalQuestions}
         answers={data.answers}

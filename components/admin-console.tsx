@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { BilingualText } from "@/components/bilingual-text";
 import { useGame } from "@/hooks/use-game";
 import { cn } from "@/lib/utils";
 
@@ -131,14 +132,20 @@ export function AdminConsole() {
               type="button"
               onClick={() => void send({ type: "goto", index })}
               className={cn(
-                "w-full rounded-xl px-3 py-2 text-left text-sm transition-colors",
+                "flex w-full items-start rounded-xl px-3 py-2 text-left text-sm transition-colors",
                 index === data.questionIndex
                   ? "bg-show-yellow text-show-ink"
                   : "text-show-cream/80 hover:bg-white/10",
               )}
             >
               <span className="font-heading mr-2 opacity-70">{index + 1}.</span>
-              {item.prompt}
+              <BilingualText
+                cs={item.promptCs}
+                en={item.promptEn}
+                fallback={item.prompt}
+                className="min-w-0"
+                secondaryClassName="text-xs opacity-75"
+              />
             </button>
           ))}
         </CardContent>
@@ -229,7 +236,14 @@ export function AdminConsole() {
           <CardHeader>
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
-                <CardTitle className="text-xl sm:text-2xl">{data.prompt}</CardTitle>
+                <CardTitle className="text-xl sm:text-2xl">
+                  <BilingualText
+                    cs={data.promptCs}
+                    en={data.promptEn}
+                    fallback={data.prompt}
+                    secondaryClassName="mt-1 text-base font-normal text-show-cream/70"
+                  />
+                </CardTitle>
                 <CardDescription>
                   Body kola: {data.roundPoints}
                   {data.awardedThisRound ? " · už pridelené" : ""}
@@ -256,9 +270,13 @@ export function AdminConsole() {
                   <span className="font-heading marquee-num flex size-9 items-center justify-center rounded-lg bg-show-purple text-show-yellow">
                     {index + 1}
                   </span>
-                  <span className="min-w-0 flex-1 text-base font-medium">
-                    {answer.text}
-                  </span>
+                  <BilingualText
+                    cs={answer.textCs}
+                    en={answer.textEn}
+                    fallback={answer.text}
+                    className="min-w-0 flex-1 text-base font-medium"
+                    secondaryClassName="text-sm font-normal opacity-75"
+                  />
                   <span className="font-heading text-lg">{answer.points}</span>
                   {shown ? (
                     <Eye className="size-4 text-show-yellow" />

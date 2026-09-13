@@ -1,16 +1,21 @@
 "use client";
 
+import { BilingualText } from "@/components/bilingual-text";
 import { BrandLogo } from "@/components/brand-logo";
 import { cn } from "@/lib/utils";
 
 type BoardAnswer = {
   shown: boolean;
   text?: string;
+  textEn?: string;
+  textCs?: string;
   points?: number;
 };
 
 type GameBoardProps = {
   prompt: string;
+  promptEn?: string;
+  promptCs?: string;
   questionIndex: number;
   totalQuestions: number;
   answers: BoardAnswer[];
@@ -63,7 +68,7 @@ function AnswerTile({
   answer: BoardAnswer;
 }) {
   return (
-    <div className="tile-scene h-[4.5rem] sm:h-20 md:h-[5.5rem]">
+    <div className="tile-scene h-[5.75rem] sm:h-24 md:h-[6.5rem]">
       <div className={cn("tile-flip", answer.shown && "is-flipped")}>
         <div className="tile-face tile-back">
           <span className="font-heading marquee-num text-4xl sm:text-5xl">
@@ -71,10 +76,14 @@ function AnswerTile({
           </span>
         </div>
         <div className="tile-face tile-front">
-          <span className="min-w-0 flex-1 truncate pr-3 text-left text-xl font-semibold tracking-wide text-white sm:text-2xl md:text-3xl">
-            {answer.text}
-          </span>
-          <span className="font-heading rounded-xl bg-show-yellow px-3 py-1 text-2xl leading-none text-show-ink sm:text-3xl">
+          <BilingualText
+            cs={answer.textCs}
+            en={answer.textEn}
+            fallback={answer.text}
+            className="min-w-0 flex-1 pr-3 text-lg leading-tight font-semibold tracking-wide text-white sm:text-xl md:text-2xl"
+            secondaryClassName="mt-0.5 text-sm font-medium tracking-normal text-white/85 sm:text-base md:text-lg"
+          />
+          <span className="font-heading shrink-0 rounded-xl bg-show-yellow px-3 py-1 text-2xl leading-none text-show-ink sm:text-3xl">
             {answer.points}
           </span>
         </div>
@@ -85,6 +94,8 @@ function AnswerTile({
 
 export function GameBoard({
   prompt,
+  promptEn,
+  promptCs,
   questionIndex,
   totalQuestions,
   answers,
@@ -129,9 +140,15 @@ export function GameBoard({
         />
       </div>
 
-      <p className="rounded-2xl border-2 border-show-yellow/25 bg-show-ink/55 px-4 py-4 text-center text-lg leading-snug text-white sm:px-8 sm:text-2xl md:text-3xl">
-        {prompt}
-      </p>
+      <div className="rounded-2xl border-2 border-show-yellow/25 bg-show-ink/55 px-4 py-4 text-center text-lg leading-snug text-white sm:px-8 sm:text-2xl md:text-3xl">
+        <BilingualText
+          cs={promptCs}
+          en={promptEn}
+          fallback={prompt}
+          className="items-center text-center"
+          secondaryClassName="mt-1 text-base font-normal text-show-cream/80 sm:text-lg md:text-xl"
+        />
+      </div>
 
       <div className="flex flex-col gap-2.5 sm:gap-3">
         {answers.map((answer, index) => (
